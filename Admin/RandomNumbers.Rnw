@@ -9,12 +9,15 @@
 \maketitle
 <<echo=FALSE>>=
 library(xtable)
-filename = "/home/CAMPUS/mwl04747/github/Climate_Change_Narratives/Admin/EA30F17_Roster.csv"
+filename = "/home/CAMPUS/mwl04747/github/EA031/Admin/PO_EA_31_1_SP18_2018_01_17.csv"
 import = read.csv(filename)
-enrollment = nrow(import)
+students = import[import$Role=="Student",]
+students$Role<- NULL
+row.names(students) <- 1:nrow(students)
+enrollment = nrow(students)
 set.seed(444)
 rnumbers = matrix(sample(10000:99999, 5* enrollment), nrow=enrollment, ncol=5, byrow=T)
-enrolled <- cbind(import, rnumbers)
+enrolled <- cbind(students, rnumbers)
 @
 
 \section*{Random Numbers}
