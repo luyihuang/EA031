@@ -1,0 +1,44 @@
+\documentclass{article}
+
+
+\title{Attendance and Discussion Facilitation}
+\author{Marc Los Huertos}
+
+\begin{document}
+
+
+
+\maketitle
+
+Leading discussions takes practice and will require extra care while your reading. 
+
+
+<<echo=FALSE>>=
+library(xtable)
+filename = "/home/CAMPUS/mwl04747/github/EA031/Admin/PO_EA_31_1_SP18_2018_01_17.csv"
+import = read.csv(filename)
+students = import[import$Role=="Student",]
+students$Role<- NULL
+row.names(students) <- 1:nrow(students)
+enrollment = nrow(students)
+#set.seed(444)
+reading1 = matrix(sample(10000:99999, 1* enrollment), nrow=enrollment, ncol=1, byrow=T)
+reading2 = matrix(sample(10000:99999, 1* enrollment), nrow=enrollment, ncol=1, byrow=T)
+reading3 = matrix(sample(10000:99999, 1* enrollment), nrow=enrollment, ncol=1, byrow=T)
+
+signature = rep("________________________", enrollment)
+enrolled <- cbind(students, reading1, reading2, reading3, signature)
+@
+
+\section*{Random Numbers}
+
+Please sign on the line of your name if you have completed the reading and are prepared to participate/facilitate the class discussion. 
+
+<<echo=F, results='asis'>>=
+enrolled.tbl <- xtable(enrolled[,c(1, 4:7)], booktabs=7)
+names(enrolled.tbl) <- c('Name','Reading 1','Reading 2', 'Reading 3', 'Prepared')
+
+print(enrolled.tbl, include.rownames = FALSE)
+@
+
+\end{document}
